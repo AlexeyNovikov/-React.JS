@@ -1,34 +1,27 @@
 import React, {Component} from 'react';
+import CommentList from './CommentList';
 
-export default class Article extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isOpen: true
-    };
-  }
-
-  toggleOpen = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-
+class Article extends Component {
   getBody() {
-    if (!this.state.isOpen) return null;
+    const {article, isOpen} = this.props;
 
-    return <section>{this.props.article.text}</section>;
+    if (!isOpen) return null;
+
+    return (
+      <section>
+        {article.text}
+        <CommentList comments = {article.comments}/>
+      </section>
+    );
   }
 
   render() {
-    const {article} = this.props;
-    const {isOpen} = this.state;
+    const {article, isOpen, toggleOpen} = this.props;
 
     return (
       <div>
         <h3>{article.title}</h3>
-        <button onClick = {this.toggleOpen}>
+        <button onClick = {toggleOpen}>
           {isOpen ? 'закрыть' : 'открыть'}
         </button>
         {this.getBody()}
@@ -36,3 +29,5 @@ export default class Article extends Component {
     );
   }
 }
+
+export default Article;
