@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import {CSSTransitionGroup} from 'react-transition-group';
 import CommentList from './CommentList';
+import './article.css';
 
 class Article extends Component {
   getBody() {
@@ -24,7 +26,16 @@ class Article extends Component {
         <button onClick = {toggleOpen}>
           {isOpen ? 'закрыть' : 'открыть'}
         </button>
-        {this.getBody()}
+        <CSSTransitionGroup
+          transitionName = 'article'
+          transitionAppear
+          transitionAppearTimeout = {500}
+          transitionEnterTimeout = {300}
+          transitionLeaveTimeout = {500}
+          component = 'div'
+        >
+          {this.getBody()}
+        </CSSTransitionGroup>
       </div>
     );
   }
